@@ -2,7 +2,6 @@ from encoder import encoder
 from decoder import decoder
 import LZW
 from huffman import HuffmanCoding
-import lossless_LZW
 import pickle
 import time
 import cv2
@@ -39,6 +38,8 @@ def compress(path, flag_alg):
     print(result)
     print(_encoder.getTime() + '[INFO] Entropy Encoder')
 
+    path_output = dir_folder.replace('input', 'compressed_file')
+
     # Huffman
     if flag_alg == 0:
         print(len(imgY))
@@ -46,12 +47,13 @@ def compress(path, flag_alg):
         h2 = HuffmanCoding('a.txt')
         h3 = HuffmanCoding('a.txt')
         imgY = h1.compress(imgY, 0)
-
         imgCb = h2.compress(imgCb, 1)
         imgCr = h3.compress(imgCr, 2)
+
         print(type(imgY))
-        dir_folder += '_huffman'
-        with open(dir_folder + ".pkl", "wb") as fp:
+        path_output += '_huffman'
+
+        with open(path_output + ".pkl", "wb") as fp:
             pickle.dump([h1, h2, h3, imgY, imgCb, imgCr], fp)
 
     # LZW
@@ -59,9 +61,11 @@ def compress(path, flag_alg):
         imgY = LZW.compress1(imgY)
         imgCb = LZW.compress1(imgCb)
         imgCr = LZW.compress1(imgCr)
-        dir_folder += '_lzw'
+
+        path_output += '_lzw'
         print(len(imgY) + len(imgCb) + len(imgCr))
-        with open(dir_folder + ".pkl", "wb") as fp:
+
+        with open(path_output + ".pkl", "wb") as fp:
             pickle.dump([imgY, imgCb, imgCr], fp)
 
     # Arithmetic
@@ -69,13 +73,12 @@ def compress(path, flag_alg):
         imgY = arithmetic_compress.arith_compress(imgY)
         imgCb = arithmetic_compress.arith_compress(imgCb)
         imgCr = arithmetic_compress.arith_compress(imgCr)
-        dir_folder += '_arithmetic'
-        with open(dir_folder + ".pkl", "wb") as fp:  # Pickling
+
+        path_output += '_arithmetic'
+        with open(path_output + ".pkl", "wb") as fp:  # Pickling
             pickle.dump([imgY, imgCb, imgCr], fp)
 
-    new_path = dir_folder + '.pkl'
-    # print(path)
-    # print(new_path)
+    new_path = path_output + '.pkl'
     print('Ratio: {}'.format(score(path, new_path)))
 
     print(_encoder.getTime() + 'Done\n')
@@ -94,6 +97,8 @@ def score(org_path, com_path):
 def decompress(path, flag_alg):
     begin = time.time()
     dir_folder = path[:path.rfind('.')]
+    path_restored = dir_folder.replace('compressed_file', 'restored_images')
+
     result = ''
     _decoder = decoder()
     print(_decoder.getTime() + '[INFO] Entropy Decoder')
@@ -101,9 +106,7 @@ def decompress(path, flag_alg):
     # Huffman
     if flag_alg == 0:
         DIR = os.path.dirname(os.path.realpath(__file__)) + '/TMP/'
-        # h1 = HuffmanCoding('a.txt')
-        # h2 = HuffmanCoding('a.txt')
-        # h3 = HuffmanCoding('a.txt')
+        print("DIR: {}".format(DIR))
         with open(path, "rb") as fp:
             [h1, h2, h3, imgY, imgCb, imgCr] = pickle.load(fp)
 
@@ -144,13 +147,13 @@ def decompress(path, flag_alg):
     img, dims, tail_f, result = _decoder.decode(imgY, imgCb, imgCr)
     print(result)
     sup_width, sup_height = dims
-    cv2.imwrite(dir_folder + '_restored.{}'.format(tail_f),
+    cv2.imwrite(path_restored + '_restored.{}'.format(tail_f),
                 img[0:img.shape[0] - sup_height, 0:img.shape[1] - sup_width])
 
     print('Time Total: {} s'.format(time.time() - begin))
-    print('PATH IMG: {}'.format(dir_folder + '_restored.{}'.format(tail_f)))
+    print('PATH IMG: {}'.format(path_restored + '_restored.{}'.format(tail_f)))
 
-    return dir_folder + '_restored.{}'.format(tail_f), result
+    return path_restored + '_restored.{}'.format(tail_f), result
 
 
 if __name__ == '__main__':

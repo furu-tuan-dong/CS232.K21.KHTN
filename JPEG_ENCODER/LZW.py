@@ -1,4 +1,7 @@
 import io
+import argparse
+import os
+
 def compress(text):
     """
     compress() takes a string and compresses it using the LZW algorithm.
@@ -176,9 +179,27 @@ def decompress1(compressed):
         w = entry
     return result.getvalue()
 
+def score(org_path, com_path):
+    org = os.stat(org_path).st_size
+    new = os.stat(com_path).st_size
+    return round(org/new, 2)
+
+
 if __name__ == '__main__':
-    a = compress('Nguyen Minh Dung')
-    b = compress1('Nguyen Minh Dung')
-    print(a)
-    print(b)
-    print(decompress1(b))
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--input', help='Path file', required=True)
+
+    args = parser.parse_args()
+
+    path_input = args.input
+    path_output = path_input[:-3] + '_output.txt'
+
+    with open(path_input) as file:
+        content = file.read()
+
+    a = compress(content)
+
+    with open(path_output, 'w') as file:
+        file.write(str(a))
+
+    print("Ratio: {}".format(score(path_input, path_output)))

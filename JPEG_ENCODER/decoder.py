@@ -85,7 +85,7 @@ class decoder():
       tail = img[0]
       img = img[1:]
       
-    img = list(map(int,img))
+    img = list(map(int, img))
     dims = []
     if flag == 1:
       dims = img[:4]
