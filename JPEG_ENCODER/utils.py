@@ -9,9 +9,12 @@ import cv2
 import os
 import arithmetic_compress
 import arithmetic_decompress
-dict_Alg={0:"JPEG encoder with Huffman Coding",1:"JPEG encoder LZW Coding",
-            2: "JPEG encoder Arithmetic Coding",3:"LZW Lossless Coding"}
-def compress(path,flag_alg):
+
+dict_Alg = {0: "JPEG encoder with Huffman Coding", 1: "JPEG encoder LZW Coding",
+            2: "JPEG encoder Arithmetic Coding", 3: "LZW Lossless Coding"}
+
+
+def compress(path, flag_alg):
     dir_folder = path[:path.rfind('.')]
     begin = time.time()
     result=''

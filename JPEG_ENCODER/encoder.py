@@ -155,31 +155,31 @@ class encoder():
     imgY, imgCb, imgCr = self.subsampling()
 
     # DCT convert
-    result+= self.getTime() + 'Done\n' + self.getTime() + '[Info] DCT convert\n'
+    result += self.getTime() + 'Done\n' + self.getTime() + '[Info] DCT convert\n'
     imgY, imgCb, imgCr = self.DCT(imgY, imgCb, imgCr)
 
     # Quantization
-    result+= self.getTime() + 'Done\n' + self.getTime() + '[INFO] Quantization\n'
+    result += self.getTime() + 'Done\n' + self.getTime() + '[INFO] Quantization\n'
     imgY = self.quantization(imgY, qy)
     imgCb = self.quantization(imgCb, qc)
     imgCr = self.quantization(imgCr, qc)
 
     # z-scan
-    result+= self.getTime() + 'Done\n' + self.getTime() + '[INFO] z-scan\n'
+    result += self.getTime() + 'Done\n' + self.getTime() + '[INFO] z-scan\n'
     imgY = self.scan(imgY, z)
     imgCb = self.scan(imgCb, z)
     imgCr = self.scan(imgCr, z)
 
     # input()
     # encode
-    result+= self.getTime() + 'Done\n' + self.getTime() + '[INFO] RLE\n'
+    result += self.getTime() + 'Done\n' + self.getTime() + '[INFO] RLE\n'
 
     imgY = self.RLE(imgY)
     imgCb = self.RLE(imgCb)
     imgCr = self.RLE(imgCr)
 
     # Tuple to string
-    result+= self.getTime() + 'Done\n' + self.getTime() + '[INFO] Tuple to string\n'
+    result += self.getTime() + 'Done\n' + self.getTime() + '[INFO] Tuple to string\n'
     imgY = '{} {} {} {} {} '.format(self.path[self.path.rfind('.')+1:], self.width, self.height, self.supWidth, self.supHeight) + self.tupleToString(imgY)
     imgCb = self.tupleToString(imgCb)
     imgCr = self.tupleToString(imgCr)

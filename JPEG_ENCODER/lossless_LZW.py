@@ -6,9 +6,13 @@ import os
 import time
 from huffman import HuffmanCoding
 import datetime
+
+
 def get_time():
     now = datetime.datetime.now()
     return "[{}:{}:{}] - ".format(now.hour,now.minute, now.second)
+
+
 def regenerate_the_image(code,myshape):
     print("Regenerating the compresed image:\n")
     pixelList = []
@@ -18,6 +22,7 @@ def regenerate_the_image(code,myshape):
     array = np.array(pixelList, dtype=np.uint8)
 
     return array.reshape(myshape)
+
 
 def convertImg2Str(img):
     res = img.reshape(-1)
@@ -31,16 +36,18 @@ def convertImg2Str(img):
     for s in convertedString:
         realString +=str(s)
     return realString
+
+
 def compress(path_img,filename):
     img = cv2.imread(path_img)
     st = time.time()
     myshape = img.shape
-    result=''
-    result+='Img shape: {}\n'.format(myshape)
+    result = ''
+    result += 'Img shape: {}\n'.format(myshape)
 
     realString = convertImg2Str(img)
 
-    result+='Lenght string : {}\n'.format(len(realString))
+    result += 'Lenght string : {}\n'.format(len(realString))
     ext = path_img.split('.')[-1]
     a = LZW.compress1(realString)
     # print(len(a))
@@ -48,6 +55,8 @@ def compress(path_img,filename):
     result+="Done! Compressed file\n".format(filename)
     # result+='Time compressed: '.format(time.time() - st)
     return result
+
+
 def decompressImg(com_path,dir_path):
     st = time.time()
     com, myshape ,ext= pickle.load(open(com_path,'rb'))

@@ -157,7 +157,6 @@ class ArithmeticEncoder(ArithmeticCoderBase):
 		self.num_underflow += 1
 
 
-
 # Reads from an arithmetic-coded bit stream and decodes symbols.
 class ArithmeticDecoder(ArithmeticCoderBase):
 	
@@ -584,8 +583,7 @@ class BitOutputStream(object):
 		self.output = out  # The underlying byte stream to write to
 		self.currentbyte = 0  # The accumulated bits for the current byte, always in the range [0x00, 0xFF]
 		self.numbitsfilled = 0  # Number of accumulated bits in the current byte, always between 0 and 7 (inclusive)
-	
-	
+
 	# Writes a bit to the stream. The given bit must be 0 or 1.
 	def write(self, b):
 		if b not in (0, 1):
@@ -597,8 +595,7 @@ class BitOutputStream(object):
 			self.output.write(towrite)
 			self.currentbyte = 0
 			self.numbitsfilled = 0
-	
-	
+
 	# Closes this stream and the underlying output stream. If called when this
 	# bit stream is not at a byte boundary, then the minimum number of "0" bits
 	# (between 0 and 7 of them) are written as padding to reach the next byte boundary.

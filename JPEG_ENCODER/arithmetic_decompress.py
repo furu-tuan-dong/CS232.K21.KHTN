@@ -3,6 +3,7 @@ import arithmeticcoding
 import time
 import tempfile
 import os
+
 python3 = sys.version_info.major >= 3
 
 def arith_decompress(inputstr):

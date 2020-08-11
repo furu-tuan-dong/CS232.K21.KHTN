@@ -5,6 +5,8 @@ import os
 import tempfile
 import arithmetic_decompress
 import pickle
+
+
 python3 = sys.version_info.major >= 3
 DIR = os.path.dirname(os.path.realpath(__file__))+'/TMP/'
 def arith_compress(inputstr):

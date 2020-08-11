@@ -1,7 +1,9 @@
-import matplotlib.pyplot as plt
-import glob,os
-import numpy as np
 import argparse
+import glob
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 def drawScore(data):
     N = len(data[0])
@@ -25,13 +27,15 @@ def drawScore(data):
 
     plt.show()
 
-def score(org_path,com_path):
+
+def score(org_path, com_path):
     org = os.stat(org_path).st_size
     new = os.stat(com_path).st_size
-    return round(org/new,2)
+    return round(org/new, 2)
+
 
 def getdata(path):
-    list_img = glob.glob(os.path.join(path,'*.ppm'))
+    list_img = glob.glob(os.path.join(path, '*.ppm'))
     flag = 0
     huff = []
     lzw = []
@@ -40,31 +44,29 @@ def getdata(path):
 
     filename = []
     isExist = []
-    # list_img = ['artificial.ppm', 'flower_foveon.ppm', 'hdr.ppm', 'spider_web.ppm']
     for p in list_img:
         try:
             com_file = p.replace('.ppm', '_huffman.pkl')
-            huff.append(score(p,com_file))
+            huff.append(score(p, com_file))
 
             com_file = p.replace('.ppm', '_lzw.pkl')
-            lzw.append(score(p,com_file))
+            lzw.append(score(p, com_file))
 
             com_file = p.replace('.ppm', '_arithmetic.pkl')
-            ari.append(score(p,com_file))
+            ari.append(score(p, com_file))
 
             com_file = p.replace('.ppm', '_LWZLossless.pkl')
-            loss.append(score(p,com_file))
+            loss.append(score(p, com_file))
 
             filename.append(os.path.basename(p))
         except:
-            print("Skip: ",p)
+            print("Skip: ", p)
 
+    return filename, huff, lzw, ari, loss
 
-
-    return (filename, huff, lzw, ari, loss)
 
 if __name__ == '__main__':
-    parser =argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('-p','--path_data',help='Path dataset',required=True)
     args = parser.parse_args()
     a = getdata(args.path_data)
