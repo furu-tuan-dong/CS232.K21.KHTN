@@ -84,7 +84,7 @@ def compress(path, flag_alg):
     print(_encoder.getTime() + 'Done\n')
 
     print('Time Total: {} s '.format(time.time() - begin))
-    print('PATH RESULT: {}'.format(dir_folder + '.pkl'))
+    print('PATH RESULT: {}'.format(path_output + '.pkl'))
     return result
 
 

@@ -145,10 +145,10 @@ class decoder():
     imgCr, _ = self.stringToTuple(imgCr)
     result += self.getTime() + 'Done\n' + self.getTime() + '[Info] DeRLE\n'
 
-
     imgY = self.deRLE(imgY)
     imgCb = self.deRLE(imgCb)
     imgCr = self.deRLE(imgCr)
+
     result += self.getTime() + 'Done\n' + self.getTime() + '[Info] Inverse-z-scan\n'
 
     # inverse-z-scan
@@ -176,6 +176,7 @@ class decoder():
     img = self.convertRGB(img, origin_cb, origin_cr, imgY)
     result += self.getTime() + 'Done\n'
     return img, dims[0][2:], dims[1], result
+
 
 if __name__== '__main__':
   _decoder = decoder()

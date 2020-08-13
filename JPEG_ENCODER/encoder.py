@@ -148,9 +148,10 @@ class encoder():
     result += self.getTime() + '[INFO] ycbcr convert\n'
 
     # ycbcr convert
-    self.img = cv2.cvtColor(self.img,cv2.COLOR_BGR2YUV)
+    self.img = cv2.cvtColor(self.img, cv2.COLOR_BGR2YUV)
 
     result += self.getTime() + 'Done\n' + self.getTime() + '[INFO] Subsampling\n'
+
     # subsampling
     imgY, imgCb, imgCr = self.subsampling()
 
@@ -189,6 +190,6 @@ class encoder():
 
 
 if __name__ == '__main__':
-  _encoder = encoder('../assets/demo.png')
+  _encoder = encoder('input/1.png')
   a, b, c, d = _encoder.encode()
   print(a)

@@ -120,9 +120,6 @@ class HuffmanCoding:
         return encoded_text
 
     def compress(self, text, i):
-        # filename, file_extension = os.path.splitext(self.path)
-        # output_path = DIR + "huffman{}.bin".format(i)
-
         frequency = make_frequency_dict(text)
         self.make_heap(frequency)
         self.merge_nodes()
