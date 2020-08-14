@@ -23,3 +23,4 @@ cryptography~=2.8
 setuptools~=49.3.0
 pytz~=2019.3
 matplotlib~=3.3.0
+flask~=1.1.2
