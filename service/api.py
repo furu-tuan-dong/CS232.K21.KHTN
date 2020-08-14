@@ -1,7 +1,7 @@
 import flask
 import os
 import sys
-sys.path.append('/Users/admin/PycharmProjects/CS232.K21.KHTN/service/src')
+sys.path.append('service/src')
 import run_service
 from run_service import *
 
