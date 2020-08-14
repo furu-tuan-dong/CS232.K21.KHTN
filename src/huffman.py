@@ -6,7 +6,7 @@ from functools import total_ordering
 Code for Huffman Coding, compression and decompression. 
 Explanation at http://bhrigu.me/blog/2017/01/17/huffman-coding-python-implementation/
 """
-DIR = os.path.dirname(os.path.realpath(__file__))+'/TMP/'
+DIR = os.path.dirname(os.path.realpath(__file__))+'/tmp/'
 @total_ordering
 class HeapNode:
     def __init__(self, char, freq):
