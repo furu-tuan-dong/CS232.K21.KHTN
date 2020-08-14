@@ -1,7 +1,7 @@
 import flask
 import os
 import sys
-sys.path.append('/src')
+sys.path.append('./src')
 import run_service
 from run_service import *
 
