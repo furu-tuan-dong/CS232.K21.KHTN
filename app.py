@@ -13,9 +13,9 @@ app.config["DEBUG"] = True
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['COMPRESS_EXTENSIONS'] = ['.png']
 app.config['DECOMPRESS_EXTENSIONS'] = ['.pkl']
-app.config['UPLOAD_PATH'] = '/input'
-app.config['COMPRESSED_PATH'] = '/compressed_file'
-app.config['DECOMPRESSED_PATH'] = '/static'
+app.config['UPLOAD_PATH'] = './input'
+app.config['COMPRESSED_PATH'] = './compressed_file'
+app.config['DECOMPRESSED_PATH'] = './static'
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
