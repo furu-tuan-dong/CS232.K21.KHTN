@@ -59,9 +59,12 @@
 
 <body>
     <div class="jumbotron">
-        <h1 class="display-4 center">Multi Media Project</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-            featured content or information.</p>
+        <h1 class="display-4 center">MULTIMEDIA PROJECT</h1>
+        <h2 class="center">UNIVERSITY OF INFORMATION TECHNOLOGY - VIETNAM NATIONAL UNIVERSITY</h2>
+        <p class="lead center">Dong Quoc Tuan - 18520185</p>
+        <p class="lead center">Nguyen Phuc Dat - 18520573</p>
+        <p class="lead center">Huynh Minh Tri - 18520176</p>
+
         <hr class="my-4">
 
         <!-- Compress -->
@@ -81,6 +84,7 @@
             </div>
             <hr class="my-4">
             <div class="container-fluid">
+                <h3 class="center">COMPRESSION</h3>
                 <div class="row justify-content-between">
                     <!-- Left -->
                     <div class="col-5 center">
@@ -95,9 +99,9 @@
                     </div>
                     <!-- Center -->
                     <div class="col">
-                        <div class="row align-items-center" style="width: 100%;height: 100%;">
+                        <div class="row align-items-center" style="height: 100%;">
                             <div class="col">
-                                <div class="p-4">
+                                <div class="">
                                     <button type="submit" class="btn btn-outline-primary">Compress >></button>
                                 </div>
                             </div>
@@ -105,7 +109,13 @@
                     </div>
                     <!-- Right -->
                     <div class="col-5 center">
-                        <div id="outputCompressed"></div>
+                        <div class="row align-items-center" style="height: 100%;">
+                            <div class="col">
+                                <button type="button" id="outputCompressed" class="btn btn-success disabled"><div style="color: dark;">Not available</div></button>
+                                <div class="spinner-border text-info sr-only" id="spinnerCompress" role="status">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,6 +123,7 @@
 
         <hr class="my-4">
         <!-- Decompress -->
+        <h3 class="center pb-4">DECOMPRESSION</h3>
         <form id="decompressForm" method="POST" action="{{ url_for('getData') }}" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -120,16 +131,18 @@
                 </div>
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" name="file" accept=".pkl" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                  <label class="custom-file-label" for="inputGroupFile01">Choose .pkl file</label>
                 </div>
             </div>
             <input type="number" name="flagAlg" id="hiddenFlagAlg" value="0" hidden/>
-            <div class="p-4">
-                <button type="submit" onclick="handleSubmitDecompress(event)" class="btn btn-outline-primary">Decompress >></button>
+            <div class="p-4 center">
+                <button type="submit" onclick="handleSubmitDecompress(event)" class="btn btn-outline-primary">Decompress </button>
             </div>
         </form>
-        <div class="preview">
-            <img id="decompress-preview">
+        <div class="preview center">
+            <div class="spinner-border text-info sr-only" id="spinnerDecompress" role="status">
+            </div>
+            <img id="decompressPreview" class="sr-only"/>
         </div>
 
     </div>
@@ -164,11 +177,16 @@
         }
         function showResponse(response)  {
             console.log(response);
-            $('#outputCompressed').html("<a href='" + response.filePath + "'>Download</a>");
+            $('#outputCompressed').html("<a href='" + response.filePath + "' style='color: black;'>Download now!</a>");
+            $('#outputCompressed').removeClass('sr-only');
+            $('#spinnerCompress').addClass('sr-only');
+
         }
         function decompressResponse(res){
             console.log(res);
-            var preview = document.getElementById("decompress-preview");
+            $('#spinnerDecompress').addClass('sr-only');
+            $('#decompressPreview').removeClass('sr-only');
+            var preview = document.getElementById("decompressPreview");
             preview.src = res.filePath;
             preview.style.display = "block";
             console.log(preview);
@@ -181,6 +199,8 @@
                 success: showResponse,
                 beforeSubmit: function(arr, $form, options) {
                     console.log(arr);
+                    $('#spinnerCompress').removeClass('sr-only');
+                    $('#outputCompressed').addClass('sr-only');
                 }
             };
             $('#fileForm').ajaxForm(options);
@@ -188,10 +208,8 @@
             $('#decompressForm').ajaxForm({
                 success: decompressResponse,
                 beforeSubmit: function(arr, $form, options) {
-                    console.log(arr);
-                    console.log($form);
-                    console.log($('#hiddenFlagAlg').val());
-                    console.log(arr);
+                    $('#spinnerDecompress').removeClass('sr-only');
+                    $('#decompressPreview').addClass('sr-only');
                 }
             });
         });
