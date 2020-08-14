@@ -1,12 +1,13 @@
-#BRANCH MASTER: source Web app
-##Run locally
+# BRANCH MASTER: source Web app
+
+## Run locally
 Download Pycharm: https://www.jetbrains.com/pycharm/
 
 Open source code in PyCharm and install dependencies in `requirement.txt`
 
 Link demo: https://www.youtube.com/watch?v=FHdRpVvyZeU&feature=youtu.be
 
-##Run website
+## Run website
 Link web app: https://secret-shelf-15633.herokuapp.com/
 
 Demo web app on server: https://youtu.be/2iKH2VK1DEA
