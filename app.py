@@ -7,15 +7,15 @@ from run_service import *
 
 from flask import render_template, url_for, request, abort, redirect, jsonify, send_from_directory, send_file
 from werkzeug.utils import secure_filename
-
+ROOT_PATH =os.path.dirname(os.path.realpath(__file__))
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['COMPRESS_EXTENSIONS'] = ['.png']
 app.config['DECOMPRESS_EXTENSIONS'] = ['.pkl']
-app.config['UPLOAD_PATH'] = './input'
-app.config['COMPRESSED_PATH'] = './compressed_file'
-app.config['DECOMPRESSED_PATH'] = './static'
+app.config['UPLOAD_PATH'] = ROOT_PATH + '/input'
+app.config['COMPRESSED_PATH'] = ROOT_PATH + '/compressed_file'
+app.config['DECOMPRESSED_PATH'] = ROOT_PATH + '/static'
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
