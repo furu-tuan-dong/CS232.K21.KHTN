@@ -59,5 +59,6 @@ def uploadPkl(filename):
 def uploadPNG(filename):
     print(filename)
     return send_from_directory(app.config['DECOMPRESSED_PATH'], filename, as_attachment=True)
-
-app.run()
+    
+if __name__ == '__main__':
+    app.run()
