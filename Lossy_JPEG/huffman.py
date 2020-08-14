@@ -150,8 +150,6 @@ class HuffmanCoding:
         return decoded_text
 
     def decompress(self, i):
-        # file_extension = os.path.splitext(self.path)
-
         output_path = DIR + "huffman{}.bin".format(i) + "_decompressed" + ".txt"
         result = ''
         with open(DIR + "huffman{}.bin".format(i), 'rb') as file, open(output_path, 'w') as output:

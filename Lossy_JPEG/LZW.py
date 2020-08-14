@@ -149,6 +149,7 @@ def compress1(uncompressed):
         result.append(dictionary[w])
     return result
 
+
 def decompress1(compressed):
     """Decompress a list of output ks to a string."""
 
@@ -202,4 +203,10 @@ if __name__ == '__main__':
     with open(path_output, 'w') as file:
         file.write(str(a))
 
+    print(a)
     print("Ratio: {}".format(score(path_input, path_output)))
+
+    1
+    # i = 'aaabaaa'
+    # c = compress(i)
+    # print("Encode"c)
